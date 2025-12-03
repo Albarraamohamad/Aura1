@@ -1,14 +1,13 @@
 import React from 'react'
 import Hero from '../components/Hero'
-import InfiniteScroll from '../components/InfiniteScroll'
-import Parallax from '../components/Parallax'
+import Products from './Products'
+
 
 const Home = () => {
   return (
     <div>
         <Hero/>
-        <InfiniteScroll/>
-      
+       <Products/>
     </div>
   )
 }

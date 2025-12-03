@@ -70,7 +70,7 @@ export default function InfiniteScroll() {
         }
 
         .animate-scroll {
-          animation: scroll 5s linear infinite;
+          animation: scroll 3s linear infinite;
         }
 
         .animate-scroll:hover {
