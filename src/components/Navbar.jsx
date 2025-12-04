@@ -129,7 +129,7 @@ export default function Navbar() {
               Home
             </Link>
             <Link 
-              to="/products" 
+              to="/allproducts" 
               onClick={() => setIsMenuOpen(false)} 
               className="text-lg hover:text-gray-300 transition-colors py-2 border-b border-gray-800"
             >

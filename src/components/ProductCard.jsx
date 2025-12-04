@@ -6,15 +6,37 @@ export default function ProductCard({ item }) {
   if (!item) return null;
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center hover:shadow-lg transition-shadow">
-      <img src={item.image} alt={item.name} className="w-32 h-32 object-cover mb-4" />
-      <h3 className="font-semibold text-lg mb-2">{item.name}</h3>
-      <p className="text-gray-700 mb-4">${item.price}</p>
+    <div className="product-card group cursor-pointer">
+      <div className="relative overflow-hidden rounded-2xl bg-gray-100 aspect-[3/4] mb-4">
+        <img 
+          src={item.image} 
+          alt={item.name}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        />
+
+        {item.category && (
+          <div className="absolute top-4 right-4">
+            <span className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-light">
+              {item.category}
+            </span>
+          </div>
+        )}
+
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+      </div>
+
+      <div className="text-center">
+        <h3 className="text-lg font-light mb-2 group-hover:text-gray-600 transition-colors">
+          {item.name}
+        </h3>
+        <p className="text-xl font-normal">{item.price} TND</p>
+      </div>
+
       <button
         onClick={() => addToCart(item)}
-        className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+        className="w-full mt-4 px-4 py-3 bg-black text-white rounded-full hover:bg-gray-800 transition-all duration-300"
       >
-        Add to Cart
+        Add To Cart
       </button>
     </div>
   );

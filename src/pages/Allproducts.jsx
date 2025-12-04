@@ -104,7 +104,7 @@ export default function Products() {
   return (
     <div className="min-h-screen bg-white">
       <Navbar1/>
-      <div className="max-w-7xl mx-auto  py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
 
         {/* MOBILE FILTER BUTTONS */}
         <div className="lg:hidden mb-6 flex gap-4 overflow-x-auto pb-2">
@@ -113,6 +113,9 @@ export default function Products() {
             className="px-6 py-2 border border-gray-300 rounded-full text-sm font-light flex items-center gap-2 whitespace-nowrap hover:bg-gray-50 bg-white"
           >
             TYPE
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
           </button>
 
           <button 
@@ -120,6 +123,9 @@ export default function Products() {
             className="px-6 py-2 border border-gray-300 rounded-full text-sm font-light flex items-center gap-2 whitespace-nowrap hover:bg-gray-50 bg-white"
           >
             COLOR
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
           </button>
 
           <button 
@@ -127,8 +133,113 @@ export default function Products() {
             className="px-6 py-2 border border-gray-300 rounded-full text-sm font-light flex items-center gap-2 whitespace-nowrap hover:bg-gray-50 bg-white"
           >
             SIZE
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
           </button>
         </div>
+
+        {/* Mobile Filter Popup - TYPE */}
+        {openDropdown === 'type' && (
+          <div className="lg:hidden fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setOpenDropdown(null)}>
+            <div 
+              className="bg-white rounded-t-3xl w-full max-h-[70vh] overflow-y-auto p-6"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-light">Type</h3>
+                <button onClick={() => setOpenDropdown(null)} className="p-2">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="space-y-4">
+                {types.map(type => (
+                  <label key={type} className="flex items-center gap-4 cursor-pointer py-3 border-b border-gray-100">
+                    <input
+                      type="checkbox"
+                      checked={selectedTypes.includes(type)}
+                      onChange={() => toggleFilter(type, 'type')}
+                      className="w-5 h-5 border-2 border-gray-300 rounded cursor-pointer accent-black"
+                    />
+                    <span className="text-gray-900 font-light capitalize text-lg flex-1">
+                      {type}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Mobile Filter Popup - COLOR */}
+        {openDropdown === 'color' && (
+          <div className="lg:hidden fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setOpenDropdown(null)}>
+            <div 
+              className="bg-white rounded-t-3xl w-full max-h-[70vh] overflow-y-auto p-6"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-light">Color</h3>
+                <button onClick={() => setOpenDropdown(null)} className="p-2">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="space-y-4">
+                {colors.map(color => (
+                  <label key={color} className="flex items-center gap-4 cursor-pointer py-3 border-b border-gray-100">
+                    <input
+                      type="checkbox"
+                      checked={selectedColors.includes(color)}
+                      onChange={() => toggleFilter(color, 'color')}
+                      className="w-5 h-5 border-2 border-gray-300 rounded cursor-pointer accent-black"
+                    />
+                    <span className="text-gray-900 font-light capitalize text-lg flex-1">
+                      {color}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Mobile Filter Popup - SIZE */}
+        {openDropdown === 'size' && (
+          <div className="lg:hidden fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setOpenDropdown(null)}>
+            <div 
+              className="bg-white rounded-t-3xl w-full max-h-[70vh] overflow-y-auto p-6"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-light">Size</h3>
+                <button onClick={() => setOpenDropdown(null)} className="p-2">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="space-y-4">
+                {sizes.map(size => (
+                  <label key={size} className="flex items-center gap-4 cursor-pointer py-3 border-b border-gray-100">
+                    <input
+                      type="checkbox"
+                      checked={selectedSizes.includes(size)}
+                      onChange={() => toggleFilter(size, 'size')}
+                      className="w-5 h-5 border-2 border-gray-300 rounded cursor-pointer accent-black"
+                    />
+                    <span className="text-gray-900 font-light text-lg flex-1">
+                      {size}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* SIDEBAR + GRID LAYOUT */}
         <div className="flex flex-col lg:flex-row gap-8">
@@ -197,8 +308,8 @@ export default function Products() {
               ))}
             </div>
 
-            {/* MOBILE GRID — FIXED */}
-            <div className="grid lg:hidden grid-cols-1 gap-6">
+            {/* MOBILE GRID - 2 COLUMNS */}
+            <div className="grid lg:hidden grid-cols-2 gap-4">
               {filteredProducts.map(product => (
                 <ProductCard key={product.id} item={product} />
               ))}
