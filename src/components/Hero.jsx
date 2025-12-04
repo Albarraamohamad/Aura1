@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import Navbar from './Navbar'
+import { Link } from "react-router-dom";
 export default function AuraHero() {
   const titleRef = useRef(null);
   const buttonRef = useRef(null);
@@ -49,12 +50,14 @@ export default function AuraHero() {
           Made with passion, Worn with pride
         </h1>
 
+       <Link to='/allproducts'>
         <button
           ref={buttonRef}
           className="px-8 md:px-12 py-3 md:py-4 text-lg md:text-xl text-white border-2 border-white rounded-full hover:bg-white hover:text-gray-900 transition-all duration-300 tracking-wide"
         >
           Shop Now
         </button>
+       </Link>
       </div>
     </div>
   );

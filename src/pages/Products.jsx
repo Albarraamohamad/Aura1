@@ -43,7 +43,7 @@ export default function Products() {
           </div>
 
           {/* Desktop Grid */}
-          <div className="hidden lg:grid grid-cols-3 gap-10">
+          <div className="hidden lg:grid grid-cols-4 gap-10">
             {products.map((product) => (
               <ProductCard key={product.id} item={product} />
             ))}
@@ -52,12 +52,8 @@ export default function Products() {
           {/* Mobile Grid - 2 columns */}
           <div className="grid lg:hidden grid-cols-2 gap-4">
             {products.map((product) => (
-              <Link 
-                key={product.id} 
-                to="/allproducts"
-                className="bg-white block"
-              >
-                <div className="aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden shadow-sm mb-3">
+              <div key={product.id} className="bg-white block">
+                <div className="bg-gray-100 rounded-2xl overflow-hidden shadow-sm mb-3">
                   <img 
                     src={product.image} 
                     alt={product.name}
@@ -67,8 +63,17 @@ export default function Products() {
                 <div className="text-center px-1">
                   <h3 className="text-sm font-light mb-1 line-clamp-2">{product.name}</h3>
                   <p className="text-lg font-medium">{product.price} TND</p>
+                  <div className="mt-3 flex justify-center space-x-2">
+                   
+                    <Link 
+                      to="/allproducts"
+                      className="px-4 py-2 bg-gray-200 text-black rounded-full text-sm hover:bg-gray-300 transition-colors"
+                    >
+                      Shop Now
+                    </Link>
+                  </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
 
