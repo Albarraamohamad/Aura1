@@ -1,13 +1,23 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
 export default function ProductCard({ item }) {
   const { addToCart } = useCart();
+  const navigate = useNavigate();
+  
   if (!item) return null;
 
+  const handleImageClick = () => {
+    navigate(`/product/${item.id}`);
+  };
+
   return (
-    <div className="product-card group cursor-pointer">
-      <div className="relative overflow-hidden rounded-2xl bg-gray-100 aspect-[3/4] mb-4">
+    <div className="product-card group">
+      <div 
+        className="relative overflow-hidden rounded-2xl bg-gray-100 aspect-[3/4] mb-4 cursor-pointer"
+        onClick={handleImageClick}
+      >
         <img 
           src={item.image} 
           alt={item.name}
@@ -25,7 +35,7 @@ export default function ProductCard({ item }) {
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
       </div>
 
-      <div className="text-center">
+      <div className="text-center cursor-pointer" onClick={handleImageClick}>
         <h3 className="text-lg font-light mb-2 group-hover:text-gray-600 transition-colors">
           {item.name}
         </h3>

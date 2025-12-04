@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import News from "./components/News";
 import Allproducts from './pages/Allproducts'
 import ScrollToTop from "./components/Scrolltop";
+import ProductDetails from "./pages/Productdetails";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
       <main> {/* to avoid overlap with fixed navbar */}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/about" element={<About />} />
           <Route path="/products" element={<Products />} />
           <Route path="/allproducts" element={<Allproducts />} />
