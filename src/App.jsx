@@ -10,12 +10,13 @@ import Blog from "./pages/Blog";
 import Footer from "./components/Footer";
 import News from "./components/News";
 import Allproducts from './pages/Allproducts'
+import ScrollToTop from "./components/Scrolltop";
 
 export default function App() {
   return (
     <div className="min-h-screen bg-gray-50">
-     
       <CartSidebar />
+          <ScrollToTop/>
       <main> {/* to avoid overlap with fixed navbar */}
         <Routes>
           <Route path="/" element={<Home />} />

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { X } from "lucide-react";
+import Navbar1 from "../components/Navbar1";
 
 export default function Checkout() {
   const { cartItems, total, clearCart } = useCart();
@@ -38,8 +39,9 @@ export default function Checkout() {
   };
 
   return (
-    <div className="min-h-screen bg-white py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-white">
+      <Navbar1/>
+      <div className="max-w-7xl mx-auto py-20 px-5">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left Column - Form */}
           <div>

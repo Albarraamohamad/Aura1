@@ -113,7 +113,7 @@ export default function ProductsSection() {
           {featuredProducts.slice(0, 3).map((product) => (
             <Link 
               key={product.id} 
-              to={`/products`}
+              to={`/allproducts`}
               className="group"
             >
               <div className="relative overflow-hidden rounded-3xl bg-gray-200 aspect-[3/4] mb-6">
@@ -151,7 +151,7 @@ export default function ProductsSection() {
                 key={product.id} 
                 className="flex-shrink-0 w-[85vw] snap-center"
               >
-                <Link to={`/products`} className="block">
+                <Link to={`/allproducts`} className="block">
                   <div className="relative overflow-hidden rounded-3xl bg-gray-200 aspect-[3/4] mb-6">
                     <img 
                       src={product.image} 
@@ -183,6 +183,16 @@ export default function ProductsSection() {
               />
             ))}
           </div>
+        </div>
+
+        {/* Shop Now Button */}
+        <div className="text-center mt-12">
+          <Link
+            to="/allproducts"
+            className="inline-block px-10 py-4 bg-black text-white rounded-full hover:bg-gray-800 transition-colors font-light text-lg"
+          >
+            Shop Now
+          </Link>
         </div>
       </div>
 

@@ -3,7 +3,7 @@ import { ShoppingCart, Menu, X } from "lucide-react";
 import { gsap } from "gsap";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-
+import logo from '/src/assets/logo.png'
 export default function Navbar() {
   const navRef = useRef(null);
   const logoRef = useRef(null);
@@ -52,11 +52,7 @@ export default function Navbar() {
             ref={logoRef}
             className="absolute left-1/2 -translate-x-1/2 text-center z-30 text-white"
           >
-            <div className="text-xs tracking-wider mb-1">BY</div>
-            <div className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold">
-              aura.
-            </div>
-            <div className="text-xs tracking-widest mt-1">READY TO WEAR</div>
+           <img src={logo} alt="" className="w-52 " />
           </div>
         </Link>
 
@@ -106,11 +102,7 @@ export default function Navbar() {
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-700">
-            <div className="text-center">
-              <div className="text-xs tracking-wider mb-1">BY</div>
-              <div className="text-2xl font-serif font-bold">aura.</div>
-              <div className="text-xs tracking-widest mt-1">READY TO WEAR</div>
-            </div>
+            <img src={logo} alt="" />
             <button
               onClick={() => setIsMenuOpen(false)}
               className="hover:opacity-80 transition-opacity"
