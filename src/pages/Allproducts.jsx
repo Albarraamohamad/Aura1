@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ProductCard from "../components/ProductCard";
 import Navbar1 from "../components/Navbar1";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const products = [
   { 
@@ -75,9 +79,93 @@ export default function Products() {
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [openDropdown, setOpenDropdown] = useState(null);
 
+  const sidebarRef = useRef(null);
+  const filterButtonsRef = useRef([]);
+  const productsGridRef = useRef(null);
+  const productCardsRef = useRef([]);
+
   const types = ["robe", "jupe", "chemise", "ensemble", "pantalon", "short"];
   const colors = ["vert", "rouge", "bleu", "blanc", "argent"];
   const sizes = ["XS", "S", "M", "L", "XL"];
+
+  useEffect(() => {
+    // Only animate on large screens
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1024px)", () => {
+      // Sidebar slide in from left
+      if (sidebarRef.current) {
+        gsap.from(sidebarRef.current, {
+          scrollTrigger: {
+            trigger: sidebarRef.current,
+            start: "top 80%",
+            end: "top 20%",
+            toggleActions: "play none none reverse"
+          },
+          x: -100,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out"
+        });
+      }
+
+      // Product cards scroll animation
+      productCardsRef.current.forEach((card, index) => {
+        if (card) {
+          gsap.from(card, {
+            scrollTrigger: {
+              trigger: card,
+              start: "top 90%",
+              end: "top 60%",
+              toggleActions: "play none none reverse"
+            },
+            opacity: 0,
+            y: 50,
+            duration: 0.8,
+            ease: "power2.out"
+          });
+        }
+      });
+    });
+
+    // Mobile filter buttons (always animate)
+    filterButtonsRef.current.forEach((button, index) => {
+      if (button) {
+        gsap.from(button, {
+          y: -20,
+          opacity: 0,
+          duration: 0.6,
+          delay: index * 0.1,
+          ease: "back.out(1.7)"
+        });
+      }
+    });
+
+    return () => mm.revert();
+  }, []);
+
+  // Re-animate products when filters change (only on large screens)
+  useEffect(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1024px)", () => {
+      productCardsRef.current.forEach((card) => {
+        if (card) {
+          gsap.fromTo(card,
+            { opacity: 0, y: 30 },
+            { 
+              opacity: 1, 
+              y: 0, 
+              duration: 0.6,
+              ease: "power2.out"
+            }
+          );
+        }
+      });
+    });
+
+    return () => mm.revert();
+  }, [selectedTypes, selectedColors, selectedSizes]);
 
   const toggleFilter = (value, filterType) => {
     if (filterType === 'type') {
@@ -109,6 +197,7 @@ export default function Products() {
         {/* MOBILE FILTER BUTTONS */}
         <div className="lg:hidden mb-6 flex gap-4 overflow-x-auto pb-2">
           <button 
+            ref={el => filterButtonsRef.current[0] = el}
             onClick={() => setOpenDropdown('type')}
             className="px-6 py-2 border border-gray-300 rounded-full text-sm font-light flex items-center gap-2 whitespace-nowrap hover:bg-gray-50 bg-white"
           >
@@ -119,6 +208,7 @@ export default function Products() {
           </button>
 
           <button 
+            ref={el => filterButtonsRef.current[1] = el}
             onClick={() => setOpenDropdown('color')}
             className="px-6 py-2 border border-gray-300 rounded-full text-sm font-light flex items-center gap-2 whitespace-nowrap hover:bg-gray-50 bg-white"
           >
@@ -129,6 +219,7 @@ export default function Products() {
           </button>
 
           <button 
+            ref={el => filterButtonsRef.current[2] = el}
             onClick={() => setOpenDropdown('size')}
             className="px-6 py-2 border border-gray-300 rounded-full text-sm font-light flex items-center gap-2 whitespace-nowrap hover:bg-gray-50 bg-white"
           >
@@ -245,7 +336,7 @@ export default function Products() {
         <div className="flex flex-col lg:flex-row gap-8">
 
           {/* DESKTOP SIDEBAR FILTERS */}
-          <div className="hidden lg:block lg:w-64 flex-shrink-0">
+          <div ref={sidebarRef} className="hidden lg:block lg:w-64 flex-shrink-0">
             <div className="bg-white sticky top-8">
 
               {/* TYPE FILTER */}
@@ -303,15 +394,19 @@ export default function Products() {
 
             {/* DESKTOP GRID */}
             <div className="hidden lg:grid grid-cols-3 gap-8">
-              {filteredProducts.map(product => (
-                <ProductCard key={product.id} item={product} />
+              {filteredProducts.map((product, index) => (
+                <div key={product.id} ref={el => productCardsRef.current[index] = el}>
+                  <ProductCard item={product} />
+                </div>
               ))}
             </div>
 
             {/* MOBILE GRID - 2 COLUMNS */}
             <div className="grid lg:hidden grid-cols-2 gap-4">
-              {filteredProducts.map(product => (
-                <ProductCard key={product.id} item={product} />
+              {filteredProducts.map((product, index) => (
+                <div key={product.id} ref={el => productCardsRef.current[index] = el}>
+                  <ProductCard item={product} />
+                </div>
               ))}
             </div>
 
